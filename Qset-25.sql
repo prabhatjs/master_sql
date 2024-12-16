@@ -121,5 +121,9 @@ select store_id,avg(cost) from sales GROUP BY store_id
 
 select avg(total_sales) from (select store_id,sum(cost) total_sales from sales GROUP BY store_id)
 
-with avg_sale() AS
-(select )
+with total_sales(store_id,total_sale_per_store) AS
+(select store_id,sum(cost) from sales GROUP BY store_id),
+    avrge_sales(avg_sales_for_all_store) AS
+        (select avg(total_sale_per_store) as avg_sales_for_all_store from total_sales)
+        select * from  total_sales ts join avrge_sales av on 
+        ts.total_sale_per_store>av.avg_sales_for_all_store
